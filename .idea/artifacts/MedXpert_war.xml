@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="MedXpert:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>MedXpert</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="MedXpert-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="MedXpert:war exploded" />
+    </root>
+  </artifact>
+</component>
