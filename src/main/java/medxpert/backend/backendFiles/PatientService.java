@@ -2,13 +2,17 @@ package medxpert.backend.backendFiles;
 import medxpert.backend.DataAccessObjects.PatientSignupDAO;
 import medxpert.backend.POJOS.Patient;
 
-import java.sql.SQLException;
 import java.util.UUID;
 
-public class PatientSignupService {
+public class PatientService {
     Patient patient;
 
-    public PatientSignupService(Patient p) throws Exception {
+    public PatientService()
+    {
+
+    }
+
+    public PatientService(Patient p) throws Exception {
         patient=p;
 
         //Add Id to the Patient
@@ -26,4 +30,18 @@ public class PatientSignupService {
         return "PAT-"+ UUID.randomUUID().toString().substring(0,6);
     }
 
+    public Patient getPatient(String CNIC) throws Exception {
+
+        PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+
+        return patientSignupDAO.getPatinet(CNIC);
+
+
+    }
+
+    public Patient getPatientMinor(String userName) throws Exception {
+        PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+
+        return patientSignupDAO.getPatinetMinor(userName);
+    }
 }

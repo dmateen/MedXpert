@@ -26,26 +26,23 @@ public class PatientSignupDAO {
     // -------- //Default Constructor --------
     public void addPatient(Patient patient) throws SQLException {
 
-
-        System.out.println("Printing Patient in PATIENT DAO");
-        System.out.println(patient);
-
         /** Getting DB Connection **/
 //        dbConnection.openConnection();
 //        Connection con=dbConnection.getConnection();
 
         /** Creating Prepared Statement **/
         PreparedStatement preSt = con.prepareStatement("INSERT INTO patient " +
-                "(patientID,FirstName,LastName,DateOfBirth,CNIC,PhoneNo) " +
-                "values(?,?,?,?,?,?) ");
+                "(patientID,FirstName,LastName,DateOfBirth,CNIC,PhoneNo,UserName) " +
+                "values(?,?,?,?,?,?,?) ");
 
         /** Adding Prepared Statement Data **/
         preSt.setString(1,patient.getPatientId());
         preSt.setString(2,patient.getFirstName());
         preSt.setString(3,patient.getLastName());
         preSt.setString(4,patient.getDateOfBirth());
-        preSt.setString(5,patient.getPhoneNumber());
+        preSt.setString(5,patient.getCNIC());
         preSt.setString(6,patient.getPhoneNumber());
+        preSt.setString(7,patient.getUserName());
 
         System.out.println(preSt);
 
@@ -55,5 +52,77 @@ public class PatientSignupDAO {
 
         /** Closing DB Connection **/
 //        dbConnection.closeConnection();
+    }
+
+    public Patient getPatinet(String cnic) throws SQLException {
+
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
+                "WHERE CNIC=? ");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,cnic);
+
+        System.out.println(preSt);
+
+        /** Executing Query **/
+        ResultSet rs= preSt.executeQuery();
+
+        /** Creating Patient from Query Data **/
+        Patient patient=new Patient();
+        while(rs.next()) {
+            //patient.setID();
+            patient.setPatientId(rs.getString("patientID"));
+            patient.setFirstName(rs.getString("FirstName"));
+            patient.setLastName(rs.getString("LastName"));
+            patient.setDateOfBirth(rs.getString("DateOfBirth"));
+            patient.setUserName(rs.getString("UserName"));
+            patient.setCNIC(rs.getString("CNIC"));
+            patient.setPhoneNumber(rs.getString("PhoneNo"));
+            patient.setGender(rs.getString("Gender"));
+            patient.setBloodGroup(rs.getString("BloodGroup"));
+            patient.setArea(rs.getString("Area"));
+            patient.setCity(rs.getString("City"));
+            patient.setCountry(rs.getString("Country"));
+        }
+        System.out.println(patient);
+        return patient;
+
+    }
+
+    public Patient getPatinetMinor(String userName) throws SQLException {
+
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
+                "WHERE UserName=? ");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,userName);
+
+        System.out.println(preSt);
+
+        /** Executing Query **/
+        ResultSet rs= preSt.executeQuery();
+
+        /** Creating Patient from Query Data **/
+        Patient patient=new Patient();
+        while(rs.next()) {
+            //patient.setID();
+            patient.setPatientId(rs.getString("patientID"));
+            patient.setFirstName(rs.getString("FirstName"));
+            patient.setLastName(rs.getString("LastName"));
+            patient.setDateOfBirth(rs.getString("DateOfBirth"));
+            patient.setUserName(rs.getString("UserName"));
+            patient.setCNIC(rs.getString("CNIC"));
+            patient.setPhoneNumber(rs.getString("PhoneNo"));
+            patient.setGender(rs.getString("Gender"));
+            patient.setBloodGroup(rs.getString("BloodGroup"));
+            patient.setArea(rs.getString("Area"));
+            patient.setCity(rs.getString("City"));
+            patient.setCountry(rs.getString("Country"));
+        }
+        System.out.println(patient);
+        return patient;
+
     }
 }

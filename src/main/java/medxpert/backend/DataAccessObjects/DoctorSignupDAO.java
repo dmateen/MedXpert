@@ -9,7 +9,7 @@ import java.sql.*;
 public class DoctorSignupDAO {
     // -------- Declaring JDBC Vars --------
     String url;
-    Connection con;
+    static Connection con;
     Statement st;
     // -------- //Declaring JDBC Vars --------
 
@@ -24,6 +24,7 @@ public class DoctorSignupDAO {
         // -------- //JDBC Connection --------
 
     }
+
     // -------- //Default Constructor --------
     public void addDoctor(Doctor doctor) throws SQLException {
 
@@ -54,5 +55,40 @@ public class DoctorSignupDAO {
 
         /** Closing DB Connection **/
 //        dbConnection.closeConnection();
+    }
+
+
+    public static Doctor getDoctor(String cnic) throws SQLException {
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM doctor " +
+                "WHERE CNIC=? ");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,cnic);
+
+
+        /** Executing Query **/
+        ResultSet rs= preSt.executeQuery();
+
+        /** Creating Patient from Query Data **/
+        Doctor doctor=new Doctor();
+        while(rs.next()) {
+            //doctor.setID();
+            doctor.setDoctorId(rs.getString("doctorID"));
+            doctor.setFirstName(rs.getString("FirstName"));
+            doctor.setLastName(rs.getString("LastName"));
+            doctor.setDateOfBirth(rs.getString("DateOfBirth"));
+            doctor.setUserName(rs.getString("UserName"));
+            doctor.setCNIC(rs.getString("CNIC"));
+            doctor.setPhoneNumber(rs.getString("PhoneNo"));
+            doctor.setGender(rs.getString("Gender"));
+            doctor.setEmail(rs.getString("Email"));
+            doctor.setSpecialist(rs.getString("Specialist"));
+            doctor.setArea(rs.getString("Area"));
+            doctor.setCity(rs.getString("City"));
+            doctor.setCountry(rs.getString("Country"));
+        }
+        System.out.println(doctor);
+        return doctor;
     }
 }
