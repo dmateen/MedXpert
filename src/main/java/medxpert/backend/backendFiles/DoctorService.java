@@ -35,4 +35,10 @@ public class DoctorService {
 
         return DoctorSignupDAO.getDoctor(cnic);
     }
+
+    public boolean loginDoctor(Doctor doctor) throws Exception {
+        DoctorSignupDAO doctorSignupDAO=new DoctorSignupDAO();
+
+        return DoctorSignupDAO.loginDoctor(doctor);
+    }
 }
