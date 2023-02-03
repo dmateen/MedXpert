@@ -32,8 +32,8 @@ public class PatientSignupDAO {
 
         /** Creating Prepared Statement **/
         PreparedStatement preSt = con.prepareStatement("INSERT INTO patient " +
-                "(patientID,FirstName,LastName,DateOfBirth,CNIC,PhoneNo,UserName) " +
-                "values(?,?,?,?,?,?,?) ");
+                "(patientID,FirstName,LastName,DateOfBirth,CNIC,PhoneNo,UserName,password_) " +
+                "values(?,?,?,?,?,?,?,?) ");
 
         /** Adding Prepared Statement Data **/
         preSt.setString(1,patient.getPatientId());
@@ -43,6 +43,7 @@ public class PatientSignupDAO {
         preSt.setString(5,patient.getCNIC());
         preSt.setString(6,patient.getPhoneNumber());
         preSt.setString(7,patient.getUserName());
+        preSt.setString(8,patient.getPassword());
 
         System.out.println(preSt);
 
@@ -124,5 +125,26 @@ public class PatientSignupDAO {
         System.out.println(patient);
         return patient;
 
+    }
+
+    public boolean loginPatinet(Patient patient) throws SQLException {
+
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
+                "WHERE (CNIC=? OR USERNAME=?) AND password_=?");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,patient.getCNIC());
+        preSt.setString(2,patient.getUserName());
+        preSt.setString(3,patient.getPassword());
+
+        System.out.println(preSt);
+
+        ResultSet rs= preSt.executeQuery();
+
+        if(rs.next())
+            return true;
+        else
+            return false;
     }
 }
