@@ -56,6 +56,8 @@ public class MedXpert_Resources {
         /**---- Sending Data to PatientSignUpService -----**/
         PatientService patientService=new PatientService();
 
+
+
         /**---- Transferring Data from JSON to Class -----**/
         Patient patient=new Gson().fromJson(payload,Patient.class);
 
@@ -102,4 +104,48 @@ public class MedXpert_Resources {
         return Response.ok(json).build();
     }
 
+    @POST
+    @Path("/testingPayload")
+    public Response testingPayload(String payload) throws Exception {
+
+        System.out.println(payload);
+
+        return Response.ok("Han jee Chal rha hai").build();
+    }
+
+    @POST
+    @Path("/loginPatient")
+    public Response loginPatient(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Patient patient=new Gson().fromJson(payload,Patient.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        PatientService patientService=new PatientService();
+
+        /**---- Getting Data From DB -----**/
+        boolean loginInfo=patientService.loginPatinet(patient);
+
+
+
+        return Response.ok(loginInfo).build();
+    }
+
+    @POST
+    @Path("/loginDoctor")
+    public Response loginDoctor(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Doctor doctor=new Gson().fromJson(payload,Doctor.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        DoctorService doctorService=new DoctorService();
+
+        /**---- Getting Data From DB -----**/
+        boolean loginInfo=doctorService.loginDoctor(doctor);
+
+
+
+        return Response.ok(loginInfo).build();
+    }
 }
