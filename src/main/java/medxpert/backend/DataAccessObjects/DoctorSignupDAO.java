@@ -25,6 +25,7 @@ public class DoctorSignupDAO {
 
     }
 
+
     // -------- //Default Constructor --------
     public void addDoctor(Doctor doctor) throws SQLException {
 
@@ -90,5 +91,30 @@ public class DoctorSignupDAO {
         }
         System.out.println(doctor);
         return doctor;
+    }
+
+    public static boolean loginDoctor(Doctor doctor) throws SQLException {
+
+
+        //Giving Internal server error when cnic is uses
+
+
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM doctor " +
+                "WHERE (CNIC=? OR USERNAME=?) AND password_=?");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,doctor.getCNIC());
+        preSt.setString(2,doctor.getUserName());
+        preSt.setString(3,doctor.getPassword());
+
+        System.out.println(preSt);
+
+        ResultSet rs= preSt.executeQuery();
+
+        if(rs.next())
+            return true;
+        else
+            return false;
     }
 }
