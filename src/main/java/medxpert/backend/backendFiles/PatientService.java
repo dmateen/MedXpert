@@ -49,4 +49,14 @@ public class PatientService {
         PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
         return patientSignupDAO.loginPatinet(patient);
     }
+
+    public boolean checkDuplicateCNIC(String cnic) throws Exception {
+        PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+        return patientSignupDAO.checkDuplicateCNIC(cnic);
+    }
+
+    public boolean checkDuplicateUsername(String username) throws Exception {
+        PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+        return patientSignupDAO.checkDuplicateUsername(username);
+    }
 }

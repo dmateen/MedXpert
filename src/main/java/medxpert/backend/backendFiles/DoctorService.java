@@ -41,4 +41,17 @@ public class DoctorService {
 
         return DoctorSignupDAO.loginDoctor(doctor);
     }
+
+
+    public boolean checkDuplicateCNIC(String cnic) throws Exception {
+        DoctorSignupDAO doctorSignupDAO=new DoctorSignupDAO();
+        return doctorSignupDAO.checkDuplicateCNIC(cnic);
+    }
+
+    public boolean checkDuplicateUsername(String username) throws Exception {
+        DoctorSignupDAO doctorSignupDAO=new DoctorSignupDAO();
+        return doctorSignupDAO.checkDuplicateUsername(username);
+    }
+
+
 }

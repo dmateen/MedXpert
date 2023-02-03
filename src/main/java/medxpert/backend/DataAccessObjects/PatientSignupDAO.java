@@ -147,4 +147,40 @@ public class PatientSignupDAO {
         else
             return false;
     }
+
+    public boolean checkDuplicateCNIC(String cnic) throws SQLException {
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
+                "WHERE CNIC=? ");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,cnic);
+
+        System.out.println(preSt);
+
+        ResultSet rs= preSt.executeQuery();
+
+        if(rs.next())
+            return true;
+        else
+            return false;
+    }
+
+    public boolean checkDuplicateUsername(String username) throws SQLException {
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
+                "WHERE USERNAME=? ");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,username);
+
+        System.out.println(preSt);
+
+        ResultSet rs= preSt.executeQuery();
+
+        if(rs.next())
+            return true;
+        else
+            return false;
+    }
 }

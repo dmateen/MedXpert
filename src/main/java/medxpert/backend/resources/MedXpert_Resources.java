@@ -148,4 +148,75 @@ public class MedXpert_Resources {
 
         return Response.ok(loginInfo).build();
     }
+
+    @POST
+    @Path("/checkDuplicateCNICPatient")
+    public Response checkDuplicateCNICPatient(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Patient patient=new Gson().fromJson(payload,Patient.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        PatientService patientService=new PatientService();
+
+        /**---- Getting Data From DB -----**/
+        boolean duplicate=patientService.checkDuplicateCNIC(patient.getCNIC());
+
+
+
+        return Response.ok(duplicate).build();
+    }
+
+    @POST
+    @Path("/checkDuplicateUsernamePatient")
+    public Response checkDuplicateUsernamePatient(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Patient patient=new Gson().fromJson(payload,Patient.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        PatientService patientService=new PatientService();
+
+        /**---- Getting Data From DB -----**/
+        boolean duplicate=patientService.checkDuplicateUsername(patient.getUserName());
+
+        return Response.ok(duplicate).build();
+    }
+
+
+
+    @POST
+    @Path("/checkDuplicateCNICDoctor")
+    public Response checkDuplicateCNICDoctor(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Doctor doctor=new Gson().fromJson(payload,Doctor.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        DoctorService doctorService=new DoctorService();
+
+        /**---- Getting Data From DB -----**/
+        boolean duplicate=doctorService.checkDuplicateCNIC(doctor.getCNIC());
+
+
+
+        return Response.ok(duplicate).build();
+    }
+
+    @POST
+    @Path("/checkDuplicateUsernameDoctor")
+    public Response checkDuplicateUsernameDoctor(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Doctor doctor=new Gson().fromJson(payload,Doctor.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        DoctorService doctorService=new DoctorService();
+
+        /**---- Getting Data From DB -----**/
+        boolean duplicate=doctorService.checkDuplicateUsername(doctor.getUserName());
+
+        return Response.ok(duplicate).build();
+    }
+
 }
