@@ -44,4 +44,9 @@ public class PatientService {
 
         return patientSignupDAO.getPatinetMinor(userName);
     }
+
+    public boolean loginPatinet(Patient patient) throws Exception {
+        PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+        return patientSignupDAO.loginPatinet(patient);
+    }
 }
