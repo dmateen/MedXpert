@@ -46,9 +46,9 @@ public class PatientService {
         return patientSignupDAO.getPatinetMinor(userName);
     }
 
-    public boolean loginPatinet(Patient patient) throws Exception {
+    public Patient loginPatinet(Patient patient) throws Exception {
         PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
-        return patientSignupDAO.loginPatinet(patient);
+        return patientSignupDAO.loginpatient(patient);
     }
 
     public boolean checkDuplicateCNIC(String cnic) throws Exception {

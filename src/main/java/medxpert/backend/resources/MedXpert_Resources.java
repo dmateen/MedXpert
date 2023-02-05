@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import medxpert.backend.POJOS.Doctor;
 import medxpert.backend.POJOS.Patient;
+import medxpert.backend.POJOS.ResponseJson;
 import medxpert.backend.backendFiles.DoctorService;
 import medxpert.backend.backendFiles.PatientService;
 
@@ -130,12 +131,11 @@ public class MedXpert_Resources {
 
         System.out.println(patient.toString());
         /**---- Getting Data From DB -----**/
-        boolean loginInfo=patientService.loginPatinet(patient);
+        Patient patient1=patientService.loginPatinet(patient);
 
-        JsonObject jsonObject=new JsonObject();
-        jsonObject.addProperty("exsist",loginInfo);
+        String json=new Gson().toJson(patient1);
 
-        return Response.ok(jsonObject).build();
+        return Response.ok(json).build();
     }
 
     @POST
@@ -149,11 +149,12 @@ public class MedXpert_Resources {
         DoctorService doctorService=new DoctorService();
 
         /**---- Getting Data From DB -----**/
-        boolean loginInfo=doctorService.loginDoctor(doctor);
+        Doctor doctor1=doctorService.loginDoctor(doctor);
+
+       String json=new Gson().toJson(doctor1);
 
 
-
-        return Response.ok(loginInfo).build();
+        return Response.ok(json).build();
     }
 
     @POST

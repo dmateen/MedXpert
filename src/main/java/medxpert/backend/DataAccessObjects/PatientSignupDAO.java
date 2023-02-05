@@ -128,11 +128,34 @@ public class PatientSignupDAO {
 
     }
 
-    public boolean loginPatinet(Patient patient) throws SQLException {
+//    public boolean loginPatinet(Patient patient) throws SQLException {
+//
+//        /** Creating Prepared Statement **/
+//        PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
+//                "WHERE (CNIC=? OR USERNAME=?) AND password_=?");
+//
+//        /** Adding Prepared Statement Data **/
+//        preSt.setString(1,patient.getCNIC());
+//        preSt.setString(2,patient.getUserName());
+//        preSt.setString(3,patient.getPassword());
+//
+//        System.out.println(preSt);
+//
+//        ResultSet rs= preSt.executeQuery();
+//
+//        if(rs.next())
+//            return true;
+//        else
+//            return false;
+//    }
+
+    public  Patient loginpatient(Patient patient) throws SQLException {
 
         /** Creating Prepared Statement **/
         PreparedStatement preSt = con.prepareStatement("SELECT * FROM patient " +
                 "WHERE (CNIC=? OR USERNAME=?) AND password_=?");
+
+
 
         /** Adding Prepared Statement Data **/
         preSt.setString(1,patient.getCNIC());
@@ -142,11 +165,32 @@ public class PatientSignupDAO {
         System.out.println(preSt);
 
         ResultSet rs= preSt.executeQuery();
+        boolean check=rs.next();
 
-        if(rs.next())
-            return true;
-        else
-            return false;
+        if(!check)
+            return new Patient();
+
+        Patient patient1=new Patient();
+        patient1.setPatientId(rs.getString("patientId"));
+        patient1.setFirstName(rs.getString("FirstName"));
+        patient1.setLastName(rs.getString("LastName"));
+        patient1.setDateOfBirth(rs.getString("DateOfBirth"));
+        patient1.setUserName(rs.getString("UserName"));
+        patient1.setCNIC(rs.getString("CNIC"));
+        patient1.setPhoneNumber(rs.getString("PhoneNo"));
+        patient1.setGender(rs.getString("Gender"));
+        patient1.setBloodGroup(rs.getString("BloodGroup"));
+        patient1.setArea(rs.getString("Area"));
+        patient1.setCity(rs.getString("City"));
+        patient1.setCountry(rs.getString("Country"));
+        patient1.setPassword(rs.getString("Password_"));
+
+
+        return patient1;
+//        if(rs.next())
+//            return true;
+//        else
+//            return false;
     }
 
     public boolean checkDuplicateCNIC(String cnic) throws SQLException {

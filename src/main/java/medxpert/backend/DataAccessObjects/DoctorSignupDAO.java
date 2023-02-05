@@ -93,7 +93,7 @@ public class DoctorSignupDAO {
         return doctor;
     }
 
-    public static boolean loginDoctor(Doctor doctor) throws SQLException {
+    public static Doctor loginDoctor(Doctor doctor) throws SQLException {
 
 
         //Giving Internal server error when cnic is uses
@@ -111,11 +111,33 @@ public class DoctorSignupDAO {
         System.out.println(preSt);
 
         ResultSet rs= preSt.executeQuery();
+        boolean check=rs.next();
 
-        if(rs.next())
-            return true;
-        else
-            return false;
+        if(!check)
+            return new Doctor();
+
+        Doctor doctor1=new Doctor();
+        doctor1.setDoctorId(rs.getString("doctorId"));
+        doctor1.setFirstName(rs.getString("FirstName"));
+        doctor1.setLastName(rs.getString("LastName"));
+        doctor1.setDateOfBirth(rs.getString("DateOfBirth"));
+        doctor1.setUserName(rs.getString("UserName"));
+        doctor1.setCNIC(rs.getString("CNIC"));
+        doctor1.setPhoneNumber(rs.getString("PhoneNo"));
+        doctor1.setGender(rs.getString("Gender"));
+        doctor1.setEmail(rs.getString("Email"));
+        doctor1.setSpecialist(rs.getString("Specialist"));
+        doctor1.setArea(rs.getString("Area"));
+        doctor1.setCity(rs.getString("City"));
+        doctor1.setCountry(rs.getString("Country"));
+        doctor1.setPassword(rs.getString("Password_"));
+
+
+        return doctor1;
+//        if(rs.next())
+//            return true;
+//        else
+//            return false;
     }
 
     public boolean checkDuplicateCNIC(String cnic) throws SQLException {
