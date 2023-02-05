@@ -1,5 +1,6 @@
 package medxpert.backend.backendFiles;
 import medxpert.backend.DataAccessObjects.PatientSignupDAO;
+import medxpert.backend.POJOS.Doctor;
 import medxpert.backend.POJOS.Patient;
 
 import java.util.UUID;
@@ -17,7 +18,7 @@ public class PatientService {
 
         //Add Id to the Patient
         patient.setPatientId(createPatientID());
-
+        patient=setDateFormat(patient);
         //Validate Patient
 
         //Add Patient to DB
@@ -58,5 +59,18 @@ public class PatientService {
     public boolean checkDuplicateUsername(String username) throws Exception {
         PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
         return patientSignupDAO.checkDuplicateUsername(username);
+    }
+
+    private Patient setDateFormat(Patient patient){
+        String date=patient.getDateOfBirth();
+        String dateArr[]=date.split("-");
+        patient.setDateOfBirth(dateArr[2]+"-"+dateArr[1]+"-"+dateArr[0]);
+        return patient;
+
+    }
+
+    public void updateProfile(Patient patient) throws Exception {
+        PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+        patientSignupDAO.updateProfile(patient);
     }
 }

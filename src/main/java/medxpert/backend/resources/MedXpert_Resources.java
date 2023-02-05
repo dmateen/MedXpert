@@ -40,8 +40,12 @@ public class MedXpert_Resources {
     @Path("/signupDoctor")
     public Response signupDoctor(String payload) throws Exception {
 
+        System.out.println(payload);
+
         /**---- Transferring Data from JSON to Class -----**/
         Doctor doctor=new Gson().fromJson(payload, Doctor.class);
+
+        System.out.println(doctor.toString());
 
         /**---- Sending Data to DoctorSignUpService -----**/
         DoctorService doctorSignupService=new DoctorService(doctor);
@@ -117,18 +121,21 @@ public class MedXpert_Resources {
     @Path("/loginPatient")
     public Response loginPatient(String payload) throws Exception {
 
+        System.out.println(payload);
         /**---- Transferring Data from JSON to Class -----**/
         Patient patient=new Gson().fromJson(payload,Patient.class);
 
         /**---- Sending Data to PatientSignUpService -----**/
         PatientService patientService=new PatientService();
 
+        System.out.println(patient.toString());
         /**---- Getting Data From DB -----**/
         boolean loginInfo=patientService.loginPatinet(patient);
 
+        JsonObject jsonObject=new JsonObject();
+        jsonObject.addProperty("exsist",loginInfo);
 
-
-        return Response.ok(loginInfo).build();
+        return Response.ok(jsonObject).build();
     }
 
     @POST
@@ -161,6 +168,7 @@ public class MedXpert_Resources {
 
         /**---- Getting Data From DB -----**/
         boolean duplicate=patientService.checkDuplicateCNIC(patient.getCNIC());
+
 
 
 
@@ -219,4 +227,36 @@ public class MedXpert_Resources {
         return Response.ok(duplicate).build();
     }
 
+
+    @POST
+    @Path("/updateDoctorProfile")
+    public Response updateDoctorProfile(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Doctor doctor=new Gson().fromJson(payload,Doctor.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        DoctorService doctorService=new DoctorService();
+
+        /**---- Getting Data From DB -----**/
+        doctorService.updateProfile(doctor);
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/updatePatientProfile")
+    public Response updatePatientProfile(String payload) throws Exception {
+
+        /**---- Transferring Data from JSON to Class -----**/
+        Patient patient=new Gson().fromJson(payload,Patient.class);
+
+        /**---- Sending Data to PatientSignUpService -----**/
+        PatientService patientService=new PatientService();
+
+        /**---- Getting Data From DB -----**/
+        patientService.updateProfile(patient);
+
+        return Response.ok().build();
+    }
 }

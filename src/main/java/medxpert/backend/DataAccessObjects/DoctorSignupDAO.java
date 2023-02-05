@@ -35,7 +35,7 @@ public class DoctorSignupDAO {
 
         /** Creating Prepared Statement **/
         PreparedStatement preSt = con.prepareStatement("INSERT INTO doctor " +
-                "(doctorID,FirstName,LastName,DateOfBirth,UserName,CNIC,PhoneNo,Password) " +
+                "(doctorID,FirstName,LastName,DateOfBirth,UserName,CNIC,PhoneNo,Password_) " +
                 "values(?,?,?,?,?,?,?,?) ");
 
         /** Adding Prepared Statement Data **/
@@ -152,5 +152,39 @@ public class DoctorSignupDAO {
             return true;
         else
             return false;
+    }
+
+    public void updateDoctorProfile(Doctor doctor) throws SQLException {
+
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("Update doctor " +
+                "Set doctorID=?,FirstName=?,LastName=?,DateOfBirth=?,UserName=?,CNIC=?,PhoneNo=?,Gender=?,Email=?, Specialist=?, Area=?, City=?, Country=?,Password_=?"+
+
+                "Where CNIC=?");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,doctor.getDoctorId());
+        preSt.setString(2,doctor.getFirstName());
+        preSt.setString(3,doctor.getLastName());
+        preSt.setString(4,doctor.getDateOfBirth());
+        preSt.setString(5,doctor.getUserName());
+        preSt.setString(6,doctor.getCNIC());
+        preSt.setString(7,doctor.getPhoneNumber());
+        preSt.setString(8,doctor.getGender());
+        preSt.setString(9,doctor.getEmail());
+        preSt.setString(10,doctor.getSpecialist());
+        preSt.setString(11,doctor.getArea());
+        preSt.setString(12,doctor.getCity());
+        preSt.setString(13,doctor.getCountry());
+        preSt.setString(14,doctor.getPassword());
+        preSt.setString(15,doctor.getCNIC());
+
+        System.out.println(preSt);
+
+        /** Executing Query **/
+        preSt.executeUpdate();
+
+
+
     }
 }

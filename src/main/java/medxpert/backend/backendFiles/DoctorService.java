@@ -14,10 +14,11 @@ public class DoctorService {
 
         //Add Id to the Doctor
         doctor.setDoctorId(createDoctorID());
+        doctor=setDateFormat(doctor);
 
         //Validate Patient
 
-        //Add Patient to DB
+        //Add Doctor to DB
         DoctorSignupDAO doctorSignupDAO=new DoctorSignupDAO();
         doctorSignupDAO.addDoctor(doctor);
     }
@@ -53,5 +54,19 @@ public class DoctorService {
         return doctorSignupDAO.checkDuplicateUsername(username);
     }
 
+    private Doctor setDateFormat(Doctor doctor){
+        String date=doctor.getDateOfBirth();
 
+        String dateArr[]=date.split("-");
+        doctor.setDateOfBirth(dateArr[2]+"-"+dateArr[1]+"-"+dateArr[0]);
+
+        return doctor;
+
+    }
+
+
+    public void updateProfile(Doctor doctor) throws Exception {
+        DoctorSignupDAO doctorSignupDAO=new DoctorSignupDAO();
+        doctorSignupDAO.updateDoctorProfile(doctor);
+    }
 }

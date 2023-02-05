@@ -1,6 +1,7 @@
 package medxpert.backend.DataAccessObjects;
 
 
+import medxpert.backend.POJOS.Doctor;
 import medxpert.backend.POJOS.Patient;
 
 import java.sql.*;
@@ -182,5 +183,40 @@ public class PatientSignupDAO {
             return true;
         else
             return false;
+    }
+
+
+    public void updateProfile(Patient patient) throws SQLException {
+
+        /** Creating Prepared Statement **/
+        PreparedStatement preSt = con.prepareStatement("Update patient " +
+                "Set patientID=?,FirstName=?,LastName=?,DateOfBirth=?,UserName=?,CNIC=?,PhoneNo=?,Gender=?,BloodGroup=?,  Area=?, City=?, Country=?,Password_=?"+
+
+                "Where (CNIC=? OR UserName=?)");
+
+        /** Adding Prepared Statement Data **/
+        preSt.setString(1,patient.getPatientId());
+        preSt.setString(2,patient.getFirstName());
+        preSt.setString(3,patient.getLastName());
+        preSt.setString(4,patient.getDateOfBirth());
+        preSt.setString(5,patient.getUserName());
+        preSt.setString(6,patient.getCNIC());
+        preSt.setString(7,patient.getPhoneNumber());
+        preSt.setString(8,patient.getGender());
+        preSt.setString(9,patient.getBloodGroup());
+        preSt.setString(10,patient.getArea());
+        preSt.setString(11,patient.getCity());
+        preSt.setString(12,patient.getCountry());
+        preSt.setString(13,patient.getPassword());
+        preSt.setString(14,patient.getCNIC());
+        preSt.setString(15,patient.getUserName());
+
+        System.out.println(preSt);
+
+        /** Executing Query **/
+        preSt.executeUpdate();
+
+
+
     }
 }
