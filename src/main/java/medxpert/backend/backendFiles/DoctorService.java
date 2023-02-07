@@ -67,6 +67,7 @@ public class DoctorService {
 
     public void updateProfile(Doctor doctor) throws Exception {
         DoctorSignupDAO doctorSignupDAO=new DoctorSignupDAO();
+        doctor=setDateFormat(doctor);
         doctorSignupDAO.updateDoctorProfile(doctor);
     }
 }

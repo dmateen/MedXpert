@@ -180,26 +180,26 @@ public class DoctorSignupDAO {
 
         /** Creating Prepared Statement **/
         PreparedStatement preSt = con.prepareStatement("Update doctor " +
-                "Set doctorID=?,FirstName=?,LastName=?,DateOfBirth=?,UserName=?,CNIC=?,PhoneNo=?,Gender=?,Email=?, Specialist=?, Area=?, City=?, Country=?,Password_=?"+
+                "Set FirstName=?,LastName=?,DateOfBirth=?,UserName=?,CNIC=?,PhoneNo=?,Gender=?,Email=?, Specialist=?, Area=?, City=?, Country=?,Password_=?"+
 
                 "Where CNIC=?");
 
         /** Adding Prepared Statement Data **/
-        preSt.setString(1,doctor.getDoctorId());
-        preSt.setString(2,doctor.getFirstName());
-        preSt.setString(3,doctor.getLastName());
-        preSt.setString(4,doctor.getDateOfBirth());
-        preSt.setString(5,doctor.getUserName());
-        preSt.setString(6,doctor.getCNIC());
-        preSt.setString(7,doctor.getPhoneNumber());
-        preSt.setString(8,doctor.getGender());
-        preSt.setString(9,doctor.getEmail());
-        preSt.setString(10,doctor.getSpecialist());
-        preSt.setString(11,doctor.getArea());
-        preSt.setString(12,doctor.getCity());
-        preSt.setString(13,doctor.getCountry());
-        preSt.setString(14,doctor.getPassword());
-        preSt.setString(15,doctor.getCNIC());
+
+        preSt.setString(1,doctor.getFirstName());
+        preSt.setString(2,doctor.getLastName());
+        preSt.setString(3,doctor.getDateOfBirth());
+        preSt.setString(4,doctor.getUserName());
+        preSt.setString(5,doctor.getCNIC());
+        preSt.setString(6,doctor.getPhoneNumber());
+        preSt.setString(7,doctor.getGender());
+        preSt.setString(8,doctor.getEmail());
+        preSt.setString(9,doctor.getSpecialist());
+        preSt.setString(10,doctor.getArea());
+        preSt.setString(11,doctor.getCity());
+        preSt.setString(12,doctor.getCountry());
+        preSt.setString(13,doctor.getPassword());
+        preSt.setString(14,doctor.getCNIC());
 
         System.out.println(preSt);
 

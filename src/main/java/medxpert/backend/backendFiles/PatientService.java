@@ -71,6 +71,7 @@ public class PatientService {
 
     public void updateProfile(Patient patient) throws Exception {
         PatientSignupDAO patientSignupDAO=new PatientSignupDAO();
+        patient=setDateFormat(patient);
         patientSignupDAO.updateProfile(patient);
     }
 }
